@@ -45,14 +45,27 @@ node {
             }
             if (rc != 0) { error 'hub org authorization failed' }
 
-			println rc
-			print env.BRANCH_NAME
+		println rc
+		println 'current branch is '+ env.BRANCH_NAME
+		if(env.BRANCH_NAME == 'main'){
+			
 			// need to pull out assigned username
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt}/sfdx force:mdapi:deploy --wait 10 -d manifest/. -u ${HUB_ORG}"
 			}else{
 			   rmsg = bat returnStdout: true, script: "\"${toolbelt}/sfdx\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+			}		
+		}
+		else if(env.BRANCH_NAME == 'DryRun'){
+			// need to pull out assigned username
+			if (isUnix()) {
+				rmsg = sh returnStdout: true, script: "${toolbelt}/sfdx force:mdapi:deploy --checkonly --wait 10 -d manifest/. -u ${HUB_ORG}"
+			}else{
+			   rmsg = bat returnStdout: true, script: "\"${toolbelt}/sfdx\" force:source:deploy --checkonly --manifest manifest/package.xml -u ${HUB_ORG}"
 			}
+			
+		}
+			
 			  
             printf rmsg
             println('Hello from a Job DSL script!')
