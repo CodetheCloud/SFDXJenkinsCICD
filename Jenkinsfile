@@ -38,68 +38,71 @@ node {
     }
 
     withCredentials([file(credentialsId: JWT_KEY_CRED_ID, variable: 'jwt_key_file')]) {
-	
-		stage('Validate Code to Prod') {
-            when {
-                branch 'DryRun';
-                equals expected: 'TRUE', actual: CI_ACTIVE
-            }        
-            steps {
-                
-				if (isUnix()) {
-                rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-				}else{
-					 rc = bat returnStatus: true, script: "\"${toolbelt}/sfdx\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-				}
-				if (rc != 0) { error 'hub org authorization failed' }
-
-				println rc
-				
-				// need to pull out assigned username
-				if (isUnix()) {
-					rmsg = sh returnStdout: true, script: "${toolbelt}/sfdx force:mdapi:deploy --wait 10 -d manifest/. -u ${HUB_ORG}"
-				}else{
-				   rmsg = bat returnStdout: true, script: "\"${toolbelt}/sfdx\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
-				}
-				  
-				printf rmsg
-				println('Hello from a Job DSL script!')
-				println(rmsg)
-				
 			
-			
-            }
-        }
-		
-		
-        stage('Deploye Code to Prod') {
-		
-			when {
-                branch 'main';
-                equals expected: 'TRUE', actual: CI_ACTIVE
-            }  
-			steps {
-				if (isUnix()) {
-					rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-				}else{
-					 rc = bat returnStatus: true, script: "\"${toolbelt}/sfdx\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
-				}
-				if (rc != 0) { error 'hub org authorization failed' }
+			stages {
+				stage('Validate Code to Prod') {
+					when {
+						branch 'DryRun';
+						equals expected: 'TRUE', actual: CI_ACTIVE
+					}        
+					steps {
+						
+						if (isUnix()) {
+						rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+						}else{
+							 rc = bat returnStatus: true, script: "\"${toolbelt}/sfdx\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+						}
+						if (rc != 0) { error 'hub org authorization failed' }
 
-				println rc
-				
-				// need to pull out assigned username
-				if (isUnix()) {
-					rmsg = sh returnStdout: true, script: "${toolbelt}/sfdx force:mdapi:deploy --wait 10 -d manifest/. -u ${HUB_ORG}"
-				}else{
-				   rmsg = bat returnStdout: true, script: "\"${toolbelt}/sfdx\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+						println rc
+						
+						// need to pull out assigned username
+						if (isUnix()) {
+							rmsg = sh returnStdout: true, script: "${toolbelt}/sfdx force:mdapi:deploy --wait 10 -d manifest/. -u ${HUB_ORG}"
+						}else{
+						   rmsg = bat returnStdout: true, script: "\"${toolbelt}/sfdx\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+						}
+						  
+						printf rmsg
+						println('Hello from a Job DSL script!')
+						println(rmsg)
+						
+					
+					
+					}
 				}
-				  
-				printf rmsg
-				println('Hello from a Job DSL script!')
-				println(rmsg)
+				
+				
+				stage('Deploye Code to Prod') {
+				
+					when {
+						branch 'main';
+						equals expected: 'TRUE', actual: CI_ACTIVE
+					}  
+					steps {
+						if (isUnix()) {
+							rc = sh returnStatus: true, script: "${toolbelt}/sfdx force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile ${jwt_key_file} --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+						}else{
+							 rc = bat returnStatus: true, script: "\"${toolbelt}/sfdx\" force:auth:jwt:grant --clientid ${CONNECTED_APP_CONSUMER_KEY} --username ${HUB_ORG} --jwtkeyfile \"${jwt_key_file}\" --setdefaultdevhubusername --instanceurl ${SFDC_HOST}"
+						}
+						if (rc != 0) { error 'hub org authorization failed' }
+
+						println rc
+						
+						// need to pull out assigned username
+						if (isUnix()) {
+							rmsg = sh returnStdout: true, script: "${toolbelt}/sfdx force:mdapi:deploy --wait 10 -d manifest/. -u ${HUB_ORG}"
+						}else{
+						   rmsg = bat returnStdout: true, script: "\"${toolbelt}/sfdx\" force:source:deploy --manifest manifest/package.xml -u ${HUB_ORG}"
+						}
+						  
+						printf rmsg
+						println('Hello from a Job DSL script!')
+						println(rmsg)
+					}
+					
+				}
+				
 			}
-			
-        }
     }
 }
