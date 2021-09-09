@@ -11,6 +11,18 @@ node {
     def JWT_KEY_CRED_ID = env.JWT_CRED_ID_DH
     def CONNECTED_APP_CONSUMER_KEY=env.CONNECTED_APP_CONSUMER_KEY_DH
 
+	
+    def PROPS = readProperties file:'props.txt';
+    def BUILD_START_TAG = "${PROPS['START_TAG']}"
+    def CI_ACTIVE = "${PROPS['IS_ACTIVE']}"
+    def SPECIFIED_TESTS = "${PROPS['SPECIFIED_TESTS']}"
+    def TEST_CLASS_NAMES = "${PROPS['TEST_CLASS_NAMES']}"
+
+    println BUILD_START_TAG
+    println CI_ACTIVE
+    println SPECIFIED_TESTS
+    println TEST_CLASS_NAMES
+	
     println 'KEY IS' 
     println JWT_KEY_CRED_ID
     println HUB_ORG
