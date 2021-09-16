@@ -50,7 +50,7 @@ node {
 			if (isUnix()) {
 				rmsg = sh returnStdout: true, script: "${toolbelt}/sfdx force:mdapi:deploy --wait 10 -d manifest/. -u ${HUB_ORG}"
 			}else{
-		           print('deploy code is running on = ' +  ${HUB_ORG} )	
+		           print('deploy code is running')	
 			   rmsg = bat returnStdout: true, script: "\"${toolbelt}/sfdx\" force:source:deploy -u ${HUB_ORG} --manifest manifest/package.xml"
 			}
 			  
