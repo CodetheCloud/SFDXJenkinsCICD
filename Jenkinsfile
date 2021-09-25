@@ -45,6 +45,7 @@ node {
             if (rc != 0) { error 'hub org authorization failed' }
 
 			println rc
+			print('this is going to deploy now for sure')
 			
 			// need to pull out assigned username
 			if (isUnix()) {
