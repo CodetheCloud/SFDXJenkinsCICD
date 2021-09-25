@@ -20,9 +20,7 @@
 		<members>CustomException1</members>
 		<members>CustomExceptionDemo</members>
 		<members>DEMApexClass</members>
-		<members>DMLUtils</members>
 		<members>DoStaticSOQL</members>
-		<members>DocTest</members>
 		<members>GenericCar</members>
 		<members>GlobalFuture</members>
 		<members>GoodAPI</members>
@@ -59,7 +57,6 @@
 		<members>Vehicle</members>
 		<members>WebServices1</members>
 		<members>collectionFW</members>
-		<members>conHelp</members>
 		<members>dailyTask</members>
 		<members>futureplus</members>
 		<members>helloeve</members>
@@ -78,7 +75,6 @@
 	
 	<types>
 		<members>AccTrigger</members>
-		<members>BookTrigger</members>
 		<name>ApexTrigger</name>
 	</types>
 	
@@ -88,11 +84,7 @@
 		<members>myComponent</members>
 		<name>LightningComponentBundle</name>
 	</types>
-	
-	<types>
-		<members>*</members>
-		<name>CustomMetadata</name>
-	</types>
+
 	
 	<types>
 		<members>Account.Active__c</members>
