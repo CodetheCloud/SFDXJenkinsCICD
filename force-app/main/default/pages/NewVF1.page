@@ -1,0 +1,7 @@
+<apex:page controller="Refer1">
+
+    <apex:form >
+    	<apex:commandButton value="Open google.com" action="{!pageref}"/>
+    </apex:form>
+    
+</apex:page>

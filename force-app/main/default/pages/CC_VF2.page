@@ -1,0 +1,9 @@
+<apex:page controller="PR1">
+    
+    
+     <apex:form >
+            <apex:commandButton value="Open Google" action="{!pageRef}"/>   
+    </apex:form>
+    
+    
+</apex:page>

@@ -1,0 +1,18 @@
+<template>
+    <div>
+        <p>Hi {greeting} </p>
+    </div>
+
+    <lightning-input label="Name" value={greeting} onchange={handleChange}> </lightning-input> 
+
+    <template if:true={areDetailsVisible}>
+        <div class="slds-m-vertical_medium">
+            These are the details!
+        </div>
+    </template>
+
+    <lightning-button label="Show" title="Non-primary action" onclick={handleClick1} class="slds-m-left_x-small"></lightning-button>
+
+    <lightning-button label="Dont Show" title="Non-primary action" onclick={handleClick2} class="slds-m-left_x-small"></lightning-button>
+
+</template>

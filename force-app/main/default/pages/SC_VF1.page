@@ -1,0 +1,13 @@
+<apex:page standardController="Account" extensions="myclass2,myControllerExtension">
+
+
+{!shownamvvv} <p/> getShownamvvv
+
+<apex:form >
+<apex:inputField value="{!account.name}"/> <p/>
+<apex:commandButton value="Save" action="{!save}"/>
+</apex:form>
+
+
+
+</apex:page>
