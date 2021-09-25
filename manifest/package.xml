@@ -5,5 +5,24 @@
         <members>ContactController</members>
         <name>ApexClass</name>
     </types>
+	
+	<types>
+		<members>Account.Active__c</members>
+		<members>Account.CustomerPriority__c</members>
+		<members>Account.Date__c</members>
+		<members>Contact.Languages__c</members>
+		<members>Contact.Level__c</members>
+		<name>CustomField</name>
+	</types>
+	<types>
+		<members>Account</members>
+		<name>CustomObject</name>
+	</types>
+	<types>
+		<members>*</members>
+		<name>Flow</name>
+	</types>
+	
+	
     <version>50.0</version>
 </Package>
